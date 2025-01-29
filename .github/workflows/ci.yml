@@ -1,0 +1,48 @@
+name: SSE-BoostTest-CI
+
+on: [push, pull_request]
+
+jobs:
+  style:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: Update package lists
+      run: sudo apt-get update
+    - name: Install clang-format
+      run: sudo apt-get install -y clang-format
+    - name: Check formatting
+      run: clang-format -i src/*.cpp src/*.hpp tests/*.cpp --dry-run -Werror
+
+
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake libeigen3-dev libyaml-cpp-dev libboost-all-dev build-essential 
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+    
+
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake libeigen3-dev libyaml-cpp-dev libboost-all-dev build-essential
+    - name: Run Tests
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+        ctest --output-on-failure
