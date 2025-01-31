@@ -1,3 +1,5 @@
+[![SSE-BoostTest-CI](https://github.com/MarcelWolkober/testing-boost-exercise/actions/workflows/ci.yml/badge.svg)](https://github.com/MarcelWolkober/testing-boost-exercise/actions/workflows/ci.yml)
+
 # SIDEMADE - Simple Dense Matrix Decomposition
 
 A simple demo code to read dense matrices from files and solve linear systems with them.
